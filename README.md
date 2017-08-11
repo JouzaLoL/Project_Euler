@@ -6,5 +6,4 @@ Whenever a problem is solved, it is named as ``#.js``, where # represents the pr
 I try to follow Google code style with some minor modifications.
 
 ### Solution in code
-
 Solution is marked as ``const solution``
