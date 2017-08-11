@@ -13,15 +13,20 @@ function fib(x) {
 
 var arr = fib(4000000); //create an array with all the fibb numbers that are lower than or equal to 4 million
 
+// Imperative style
 function sum() {
   var s = 0;
   for (x = 0; x < arr.length; x++) {
     if (arr[x] % 2 === 0) { //if a number is even, add it to the sum
       s += arr[x];
-
     }
   }
   return s;
 }
 
-const solution = sum();
+const solutionImper = sum();
+
+// Functional style - cleaner, more
+const solutionFunc = fib(4E6).reduce((acc, currValue) => {
+  return (currValue % 2 === 0) ? acc + currValue : acc;
+});
