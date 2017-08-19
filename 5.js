@@ -60,7 +60,7 @@ factors.forEach((factorArray) => {
     // If factor is not yet in array, add it
     if (!factor) {
       finalFactors.push({number: number, power: 0});
-      // Dirty: find the cator again
+      // Dirty: find the factor again
       factor = finalFactors.filter((f) => {
         return f.number == number;
       })[0];

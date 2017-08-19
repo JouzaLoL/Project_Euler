@@ -1,17 +1,39 @@
-function isPrime(number) {
-  var start = 2;
-  while (start <= Math.sqrt(number)) {
-      if (number % start++ < 1) return false;
+function isPrimeWithArrayOfPrimes(n, arrayOfPrimes) {
+  if (n == 1) {
+    return false;
   }
-  return number > 1;
+  if (n == 2 || n == 3) {
+    return true;
+  }
+  for (var i = 0; i < arrayOfPrimes.length; i++) {
+    if (n % arrayOfPrimes[i] == 0) {
+      return false;
+    }
+    if (arrayOfPrimes[i] > Math.round(Math.sqrt(n))) {
+        break;
+    }
+  }
+  return true;
 }
 
 
-getPrimesBetween(1, 2*10E6);
-
-for(let i = 1; i < 2*10E6; i++) {
-  if(isPrime(i)) {
-    primes.push(i);
-    sum += i;
+/**
+ * Finds all prime numbers in the range specified by the parameters
+ * 
+ * @param {any} start Lower bound, included
+ * @param {any} end Upper bound, not included
+ * @returns 
+ */
+function getPrimesBetween(start, end) {
+  let primes = [];
+  for(let i = start; i < end; i++) {
+    if(isPrimeWithArrayOfPrimes(i, primes)) {
+      primes.push(i);
+    }
   }
+  return primes;
 }
+
+console.time("1")
+getPrimesBetween(1, 10E7)
+console.timeEnd("1")
