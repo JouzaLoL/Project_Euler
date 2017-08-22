@@ -17,43 +17,23 @@ function primeFactorization(number = 2) {
   return factors;
 }
 
-function cleanArray(deleteValue) {
-  for (var i = 0; i < this.length; i++) {
-    if (this[i] == deleteValue) {
-      this.splice(i, 1);
-      i--;
-    }
-  }
-  return this;
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
 }
 
 function primeFactorizationWithPowers(n) {
   let factors = primeFactorization(n);
-  // Contains objects of type {number: int, power: int }
-  let factorsWithPowers = [];
-
-
-  factors.forEach((number) => {
-    // Find factor in array
-    let factor = factorsWithPowers.filter((f) => {
-      return f.number == number;
-    })[0];
-    // If factor is not yet in array, add it
-    if (!factor) {
-      factorsWithPowers.push({ number: number, power: 0 });
-      // Dirty: find the factor again
-      factor = factorsWithPowers.filter((f) => {
-        return f.number == number;
-      })[0];
-    }
-    // Calculate power
-    let power = factors.filter((element) => {
-      return number == element;
-    }).length;
-    if (factor.power <= power) {
-      factor.power = power;
-    }
+  let factorsWithPowers = factors.filter(onlyUnique).map((factor) => {
+    return { number: factor, power: 0 };
   });
+
+  for (let i = 0, length = factors.length; i < length; i++) {
+    let currentNumber = factors[i];
+    factorsWithPowers.find((element) => {
+      return element.number === currentNumber;
+    }).power++;
+  }
+
   return factorsWithPowers;
 }
 
@@ -67,13 +47,12 @@ function getDivisorCount(n) {
   return factors.map((factor) => {
     return factor.power
   }).reduce((acc, power) => {
-    return acc *= (power + 1);
-  }) + 1;
+    return acc = acc * (power + 1);
+  }, 1);
 }
 
-
-let triangleNumber = 1;
-for (let a = 0; a < 10E30; a++) {
+let triangleNumber = 0;
+for (let a = 1; a < 10E30; a++) {
   triangleNumber += a;
   let divisorCount = getDivisorCount(triangleNumber);
   if (divisorCount > 500) {
